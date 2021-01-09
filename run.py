@@ -1,5 +1,5 @@
 """
-PythonEcosystem by Alexandre Sajus
+Python-Ecosystem by Alexandre Sajus
 
 More information at:
 https://github.com/AlexandreSajus/PythonEcosystem
@@ -140,7 +140,7 @@ h = 50  # height of world
 n_bunnies = 100  # number of bunnies
 speed_bunny_max = 9  # maximum bunny speed (for natural selection study)
 speed_bunny_min = 2  # minimum bunny speed (for natural selection study)
-visibility_bunny = 3  # vision range of bunnies
+visibility_bunny = 10  # vision range of bunnies
 gestChance_bunny = 0.001  # chance to want to reproduce for bunnies
 # reproduction status (0 for don't want to reproduce, 1 elsewise)
 gestStatus_bunny = 0
@@ -165,14 +165,15 @@ gestStatus_fox = 0
 gestNumber_fox = 1  # foxes created per reproduction
 
 # Change the font size for matplotlib
-SIZE = 8
-plt.rc('font', size=SIZE)          # controls default text sizes
-plt.rc('axes', titlesize=SIZE)     # fontsize of the axes title
-plt.rc('axes', labelsize=SIZE)    # fontsize of the x and y labels
-plt.rc('xtick', labelsize=SIZE)    # fontsize of the tick labels
-plt.rc('ytick', labelsize=SIZE)    # fontsize of the tick labels
-plt.rc('legend', fontsize=SIZE)    # legend fontsize
-plt.rc('figure', titlesize=SIZE)
+size = 8
+small_size = 6
+plt.rc('font', size=size)          # controls default text sizes
+plt.rc('axes', titlesize=size)     # fontsize of the axes title
+plt.rc('axes', labelsize=small_size)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=small_size)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=small_size)    # fontsize of the tick labels
+plt.rc('legend', fontsize=small_size)    # legend fontsize
+plt.rc('figure', titlesize=small_size)
 
 # Setting up the plots
 fig = plt.figure()

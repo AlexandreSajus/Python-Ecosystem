@@ -1,5 +1,5 @@
 """
-PythonEcosystem by Alexandre Sajus
+Python-Ecosystem by Alexandre Sajus
 
 More information at:
 https://github.com/AlexandreSajus/PythonEcosystem
