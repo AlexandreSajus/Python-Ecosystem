@@ -1,8 +1,7 @@
 # Python-Ecosystem
 A simple discrete ecosystem model in Python illustrating prey-predator systems and natural selection
 
-The ecosystem shows the interaction between foxes and bunnies
-The simulation takes into account hunger, age, reproduction, vision range and fear
+The ecosystem shows the interaction between foxes and bunnies. It takes into account hunger, age, reproduction, vision range and fear
 
 Parameters can vary to simulate natural selection
 
