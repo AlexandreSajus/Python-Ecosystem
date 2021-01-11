@@ -7,6 +7,6 @@ Parameters can vary to simulate natural selection
 
 ![](naturalSelection.gif)
 
-Here is an example of a relatively stable ecosystem without natural selection
+Here is an example of a relatively stable ecosystem
 
 ![](stableEcosystem.gif)
