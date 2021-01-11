@@ -14,7 +14,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-from agents import bunny, fox
+from agents import Bunny, Fox
 
 
 def createWorld(h, w, n_bunnies, speed_bunny_min, speed_bunny_max, visibility_bunny, gestChance_bunny,
@@ -38,14 +38,14 @@ def createWorld(h, w, n_bunnies, speed_bunny_min, speed_bunny_max, visibility_bu
         x = randint(0, w - 1)
         y = randint(0, h - 1)
         state[y][x] = i
-        liveAgents[i] = bunny(
+        liveAgents[i] = Bunny(
             x, y, randint(speed_bunny_min, speed_bunny_max), visibility_bunny, gestChance_bunny, gestStatus_bunny, gestNumber_bunny, age_bunny)
 
     for j in range(n_bunnies + 1, n_bunnies + 1 + n_foxes):
         x = randint(0, w - 1)
         y = randint(0, h - 1)
         state[y][x] = j
-        liveAgents[j] = fox(x, y, speed_fox, visibility_fox, age_fox, huntStatus_fox,
+        liveAgents[j] = Fox(x, y, speed_fox, visibility_fox, age_fox, huntStatus_fox,
                             hunger_fox, hungerThresMin_fox, hungerThresMax_fox, hungerReward_fox, maxHunger_fox, gestChance_fox, gestStatus_fox, gestNumber_fox)
 
     return state, liveAgents
@@ -104,10 +104,10 @@ def export(liveAgents):
     YFoxes = []
     for key in liveAgents:
         agent = liveAgents[key]
-        if isinstance(agent, bunny):
+        if isinstance(agent, Bunny):
             XBunnies.append(agent.x)
             YBunnies.append(agent.y)
-        elif isinstance(agent, fox):
+        elif isinstance(agent, Fox):
             XFoxes.append(agent.x)
             YFoxes.append(agent.y)
     return XBunnies, YBunnies, XFoxes, YFoxes
@@ -126,7 +126,7 @@ def count(liveAgents):
     speed = 0
     for key in liveAgents:
         agent = liveAgents[key]
-        if isinstance(agent, bunny):
+        if isinstance(agent, Bunny):
             liveBunnies += 1
             speed += agent.speed
         else:
@@ -141,13 +141,13 @@ n_bunnies = 100  # number of bunnies
 speed_bunny_max = 9  # maximum bunny speed (for natural selection study)
 speed_bunny_min = 2  # minimum bunny speed (for natural selection study)
 visibility_bunny = 10  # vision range of bunnies
-gestChance_bunny = 0.001  # chance to want to reproduce for bunnies
+gestChance_bunny = 0.0008  # chance to want to reproduce for bunnies
 # reproduction status (0 for don't want to reproduce, 1 elsewise)
 gestStatus_bunny = 0
 gestNumber_bunny = 3  # bunnies created per reproduction
 # bunny age (age decreases over time. If age reaches 0, the agent dies)
 age_bunny = 5000
-n_foxes = 11  # number of initial foxes
+n_foxes = 6  # number of initial foxes
 speed_fox = 4  # fox speed
 visibility_fox = 100  # vision range of foxes
 age_fox = 800  # fox age
@@ -156,9 +156,9 @@ huntStatus_fox = 0  # hunting status (0 not on the hunt, 1 elsewise)
 hunger_fox = 250
 # if hunger goes under this threshold, the agent starts hunting
 hungerThresMin_fox = 350
-hungerThresMax_fox = 600  # if hunger goes over this threshold, the agent stops hunting
+hungerThresMax_fox = 450  # if hunger goes over this threshold, the agent stops hunting
 hungerReward_fox = 150  # hunger reward per bunny kill
-maxHunger_fox = 700  # hunger max limit
+maxHunger_fox = 500  # hunger max limit
 gestChance_fox = 0.0004  # chance to want to reproduce for foxes
 # reproduction status for bunnies (0 for don't want to reproduce, 1 elsewise)
 gestStatus_fox = 0
@@ -188,7 +188,7 @@ foxes, = ax1.plot([], [], 'ro', ms=3)
 # Plot to study the evolution of average speed of bunnies over time, for natural selection study
 ax2 = plt.subplot(224, title="Average speed of bunnies over time (red=fox speed)",
                   xlabel="time (-)", ylabel="speed (less is faster) (-)")
-plt.xlim(0, 4000)
+plt.xlim(0, 5000)
 plt.ylim(7, 2)
 plt.plot([0, 5000], [speed_fox, speed_fox], color='r')
 speedData, = ax2.plot([], [])
@@ -196,7 +196,7 @@ speedData, = ax2.plot([], [])
 
 ax3 = plt.subplot(222, title="Population over time",
                   xlabel="time (-)", ylabel="population (-)")
-plt.xlim(0, 4000)
+plt.xlim(0, 5000)
 plt.ylim(0, 200)
 popBunnyData, = ax3.plot([], [])
 popFoxData, = ax3.plot([], [], color='r')
