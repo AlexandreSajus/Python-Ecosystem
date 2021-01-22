@@ -83,8 +83,7 @@ def step(t, state, liveAgents):
     for key, agent in liveAgents.copy().items():
         if key in liveAgents:
             agent.act(t, state, liveAgents, age_fox)
-    state = update_state(state, liveAgents)
-    return state
+    return update_state(state, liveAgents)
 
 
 def export(liveAgents):
