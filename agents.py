@@ -65,9 +65,7 @@ def move_towards(agent, agentT, state, direction):
     :param direction: 1 if agent wants to move towards agentT, -1 if agent wants to run away from agentT
     :type direction: int
     """
-    u = unit_vector(agent, agentT)
-    xU = u[0]
-    yU = u[1]
+    xU, yU = unit_vector(agent, agentT)
     if abs(xU) >= abs(yU):
         if xU > 0:
             xU = 1*direction
