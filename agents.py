@@ -171,10 +171,8 @@ class Bunny:
                     move_towards(self, minPrey, state, 1)
                     if self.x == minPrey.x and self.y == minPrey.y:  # if a bunny has been found, reproduce
                         self.gestStatus = 0
-                        maxKey = 0
-                        for key in liveAgents:  # find an unassigned key in liveAgents for the newborns
-                            if key > maxKey:
-                                maxKey = key
+                        maxKey = max(liveAgents)  # find an unassigned key in liveAgents for the newborns
+
                         for i in range(self.gestNumber):
                             # the newborns are a copy of the parent
                             liveAgents[maxKey + i + 1] = deepcopy(self)
@@ -231,17 +229,14 @@ class Fox:
                         move_towards(self, minPrey, state, 1)
                         if self.x == minPrey.x and self.y == minPrey.y:  # if another fox is found, reproduce
                             self.gestStatus = 0
-                            maxKey = 0
-                            for key in liveAgents:  # find an unassigned key for the newborns
-                                if key > maxKey:
-                                    maxKey = key
+                            maxKey = max(liveAgents)  # find an unassigned key for the newborns
+
                             for i in range(self.gestNumber):
                                 # the newborns are copies of the parent
                                 liveAgents[maxKey + i + 1] = deepcopy(self)
                                 # reset the age of the newborns
                                 liveAgents[maxKey + i + 1].age = age_fox
-                else:
-                    if self.gestChance > random():  # random chance to want to reproduce
+                elif self.gestChance > random():  # random chance to want to reproduce
                         self.gestStatus = 1
             else:  # if the agent wants to hunt
                 if self.hunger >= self.hungerThresMax:  # if hunger goes over thresholdMax, stop hunting
