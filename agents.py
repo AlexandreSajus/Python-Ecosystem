@@ -154,7 +154,7 @@ class Bunny:
         if t % self.speed == 0:
             # check for foxes in the area
             minFox, minFKey = detect_prey(self, liveAgents, Fox)
-            if minFox != None:  # if there is a fox, run away
+            if minFox is not None:  # if there is a fox, run away
                 move_towards(self, minFox, state, -1)
             elif self.gestStatus == 0:  # if there is no fox and the agent doesn't want to reproduce, move randomly
                 # random chance to want to reproduce next turn
@@ -163,7 +163,7 @@ class Bunny:
             else:
                 # if the agent wants to reproduce, find another bunny
                 minPrey, minKey = detect_prey(self, liveAgents, Bunny)
-                if minPrey != None:
+                if minPrey is not None:
                     move_towards(self, minPrey, state, 1)
                     if self.x == minPrey.x and self.y == minPrey.y:  # if a bunny has been found, reproduce
                         self.gestStatus = 0
@@ -221,7 +221,7 @@ class Fox:
                     self.huntStatus = 1
                 if self.gestStatus == 1:  # if the agent wants to reproduce, find another fox
                     minPrey, minKey = detect_prey(self, liveAgents, Fox)
-                    if minPrey != None:
+                    if minPrey is not None:
                         move_towards(self, minPrey, state, 1)
                         if self.x == minPrey.x and self.y == minPrey.y:  # if another fox is found, reproduce
                             self.gestStatus = 0
@@ -239,7 +239,7 @@ class Fox:
                     self.huntStatus = 0
                 minPrey, minKey = detect_prey(
                     self, liveAgents, Bunny)  # find a prey
-                if minPrey != None:
+                if minPrey is not None:
                     move_towards(self, minPrey, state, 1)
                     if self.x == minPrey.x and self.y == minPrey.y:  # if the agent is on the prey, kill the prey
                         liveAgents.pop(minKey, None)
