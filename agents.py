@@ -120,8 +120,7 @@ def detect_prey(agent, liveAgents, animal):
     minPrey = None
     minDist = inf
     minKey = None
-    for key in liveAgents:
-        prey = liveAgents[key]
+    for key, prey in liveAgents.items():
         if prey != agent:
             if isinstance(prey, animal):
                 dist = distance(agent, prey)
@@ -155,8 +154,8 @@ class Bunny:
         """
         self.age -= 1  # decrease the age (if age reaches 0, the agent dies)
         if self.age == 0:  # kill the agent if age reaches O
-            for key in liveAgents:
-                if liveAgents[key] == self:
+            for key, agent in liveAgents.items():
+                if agent == self:
                     liveAgents.pop(key, None)
                     break
         # the agent can only act on some values of t (time), the frequency of these values are defined by speed
@@ -221,8 +220,8 @@ class Fox:
         # hunger can't go over maxHunger
         self.hunger = min(self.maxHunger, self.hunger)
         if self.age == 0 or self.hunger == 0:  # kill the agent in case of starvation or aging
-            for key in liveAgents:
-                if liveAgents[key] == self:
+            for key, agent in liveAgents.items():
+                if agent == self:
                     liveAgents.pop(key, None)
                     break
         # the agent can only act on some values of t (time), the frequency of these values are defined by speed

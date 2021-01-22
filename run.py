@@ -61,8 +61,7 @@ def update_state(state, liveAgents):
     :rtype: Array
     """
     state = np.zeros((len(state), len(state[0])))
-    for key in liveAgents:
-        agent = liveAgents[key]
+    for key, agent in liveAgents.items():
         x = agent.x
         y = agent.y
         state[y][x] = key
@@ -81,9 +80,8 @@ def step(t, state, liveAgents):
     :return: state, 2D array of size h*w with 0 if the spot is empty or the id of an agent if an agent is in the spot
     :rtype: Array
     """
-    for key in liveAgents.copy():
+    for key, agent in liveAgents.copy().items():
         if key in liveAgents:
-            agent = liveAgents[key]
             agent.act(t, state, liveAgents, age_fox)
     state = update_state(state, liveAgents)
     return state
@@ -101,8 +99,7 @@ def export(liveAgents):
     YBunnies = []
     XFoxes = []
     YFoxes = []
-    for key in liveAgents:
-        agent = liveAgents[key]
+    for key, agent in liveAgents.items():
         if isinstance(agent, Bunny):
             XBunnies.append(agent.x)
             YBunnies.append(agent.y)
@@ -123,8 +120,7 @@ def count(liveAgents):
     liveBunnies = 0
     liveFoxes = 0
     speed = 0
-    for key in liveAgents:
-        agent = liveAgents[key]
+    for key, agent in liveAgents.items():
         if isinstance(agent, Bunny):
             liveBunnies += 1
             speed += agent.speed
