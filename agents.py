@@ -3,9 +3,10 @@ Python-Ecosystem by Alexandre Sajus
 
 More information at:
 https://github.com/AlexandreSajus/PythonEcosystem
+
+agents.py takes care of managing the behaviour of the animals
 """
 
-# agents.py takes care of managing the behaviour of the animals
 
 from random import randint, random
 from math import sqrt, inf
@@ -132,10 +133,13 @@ def detect_prey(agent, liveAgents, animal):
                     minKey = key
     return minPrey, minKey
 
-# Bunny class, its variables are explained in run.py
+
 
 
 class Bunny:
+    """
+    Bunny class, its variables are explained in run.py
+    """
     def __init__(self, x, y, speed, visibility, gestChance, gestStatus, gestNumber, age):
         self.x = x
         self.y = y
@@ -146,8 +150,11 @@ class Bunny:
         self.gestNumber = gestNumber
         self.age = age
 
-    # act controls the behavior of the agent at every step of the simulation
+
     def act(self, t, state, liveAgents, age_bunny):
+        """
+        act controls the behavior of the agent at every step of the simulation
+        """
         self.age -= 1  # decrease the age (if age reaches 0, the agent dies)
         if self.age == 0:  # kill the agent if age reaches O
             for key in liveAgents:
@@ -184,10 +191,11 @@ class Bunny:
                 else:  # if no partner found, move randomly
                     random_movement(self, state)
 
-# Fox class, its variables are explained in run.py
-
 
 class Fox:
+    """
+    Fox class, its variables are explained in run.py
+    """
     def __init__(self, x, y, speed, visibility, age, huntStatus, hunger, hungerThresMin, hungerThresMax, hungerReward, maxHunger,
                  gestChance, gestStatus, gestNumber):
         self.x = x
@@ -205,8 +213,10 @@ class Fox:
         self.gestStatus = gestStatus
         self.gestNumber = gestNumber
 
-    # act controls the behavior of the agent at every step of the simulation
     def act(self, t, state, liveAgents, age_fox):
+        """
+         act controls the behavior of the agent at every step of the simulation
+        """
         self.age -= 1  # decrease age (if age reaches O, the agent dies)
         # decrease hunger (if hunger reaches O, the agent dies)
         self.hunger -= 1
