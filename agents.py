@@ -126,8 +126,6 @@ def detect_prey(agent, liveAgents, animal):
     return minPrey, minKey
 
 
-
-
 class Bunny:
     """
     Bunny class, its variables are explained in run.py
