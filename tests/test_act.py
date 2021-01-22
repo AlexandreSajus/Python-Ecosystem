@@ -4,7 +4,7 @@ import run
 def test_bunny_act():
     # Test
     l_a = run.liveAgents.copy()
-    l_a[1].act(1, run.state, l_a, run.age_fox)
+    l_a[1].act(0, run.state, l_a, run.age_fox)
 
 
 if __name__ == "__main__":

@@ -143,43 +143,58 @@ class Bunny(Animal):
     """
     IS_PREY = True
 
-    def act(self, t, state, liveAgents, age_bunny):
-        """
-        act controls the behavior of the agent at every step of the simulation
-        """
+    def age_creature(self, liveAgents):
         self.age -= 1  # decrease the age (if age reaches 0, the agent dies)
         if self.age == 0:  # kill the agent if age reaches O
             for key, agent in liveAgents.items():
                 if agent == self:
                     liveAgents.pop(key, None)
                     break
+
+    def handle_fox_in_area(self, state, liveAgents):
+        # check for foxes in the area
+        minFox, minFKey = detect_prey(self, liveAgents, Fox)
+        if minFox is not None:  # if there is a fox, run away
+            move_towards(self, minFox, state, -1)
+            return True
+
+    def doesnt_want_to_reproduce(self, state):
+        if self.gestStatus == 0:  # if there is no fox and the agent doesn't want to reproduce, move randomly
+            # random chance to want to reproduce next turn
+            self.gestStatus = int(random() < self.gestChance)
+            random_movement(self, state)
+            return True
+
+    def find_partner(self, state, liveAgents, age_bunny):
+        # if the agent wants to reproduce, find another bunny
+        minPrey, minKey = detect_prey(self, liveAgents, Bunny)
+        if minPrey is not None:
+            move_towards(self, minPrey, state, 1)
+            if self.x == minPrey.x and self.y == minPrey.y:  # if a bunny has been found, reproduce
+                self.gestStatus = 0
+                maxKey = max(liveAgents)  # find an unassigned key in liveAgents for the newborns
+
+                for i in range(self.gestNumber):
+                    # the newborns are a copy of the parent
+                    liveAgents[maxKey + i + 1] = deepcopy(self)
+                    # reset the age of the newborns
+                    liveAgents[maxKey + i + 1].age = age_bunny
+            return True
+
+    def act(self, t, state, liveAgents, age_bunny):
+        """
+        act controls the behavior of the agent at every step of the simulation
+        """
+        self.age_creature(liveAgents)
+
         # the agent can only act on some values of t (time), the frequency of these values are defined by speed
         if t % self.speed == 0:
-            # check for foxes in the area
-            minFox, minFKey = detect_prey(self, liveAgents, Fox)
-            if minFox is not None:  # if there is a fox, run away
-                move_towards(self, minFox, state, -1)
-            elif self.gestStatus == 0:  # if there is no fox and the agent doesn't want to reproduce, move randomly
-                # random chance to want to reproduce next turn
-                self.gestStatus = int(random() < self.gestChance)
+            if (
+                    not self.handle_fox_in_area(state, liveAgents)
+                    and not self.doesnt_want_to_reproduce(state)
+                    and not self.find_partner(state, liveAgents, age_bunny)
+            ):
                 random_movement(self, state)
-            else:
-                # if the agent wants to reproduce, find another bunny
-                minPrey, minKey = detect_prey(self, liveAgents, Bunny)
-                if minPrey is not None:
-                    move_towards(self, minPrey, state, 1)
-                    if self.x == minPrey.x and self.y == minPrey.y:  # if a bunny has been found, reproduce
-                        self.gestStatus = 0
-                        maxKey = max(liveAgents)  # find an unassigned key in liveAgents for the newborns
-
-                        for i in range(self.gestNumber):
-                            # the newborns are a copy of the parent
-                            liveAgents[maxKey + i + 1] = deepcopy(self)
-                            # reset the age of the newborns
-                            liveAgents[maxKey + i + 1].age = age_bunny
-
-                else:  # if no partner found, move randomly
-                    random_movement(self, state)
 
 
 class Fox(Animal):
