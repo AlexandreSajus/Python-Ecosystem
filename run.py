@@ -81,8 +81,7 @@ def step(t, state, liveAgents):
     :rtype: Array
     """
     for key, agent in liveAgents.copy().items():
-        if key in liveAgents:
-            agent.act(t, state, liveAgents, age_fox)
+        agent.act(t, state, liveAgents, age_fox)
     return update_state(state, liveAgents)
 
 
