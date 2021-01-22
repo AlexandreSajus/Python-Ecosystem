@@ -116,7 +116,7 @@ def detect_prey(agent, liveAgents, animal):
     minDist = inf
     minKey = None
     for key, prey in liveAgents.items():
-        if prey != agent and isinstance(prey, animal):
+        if prey != agent and isinstance(prey, animal) and prey.x - agent.x <= agent.visibility and prey.y - agent.y <= agent.visibility:
             dist = distance(agent, prey)
             if minDist > dist <= agent.visibility:
                 minPrey = prey
