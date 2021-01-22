@@ -105,7 +105,7 @@ def random_movement(agent, state, moves=None):
         random_movement(agent, state, moves)
 
 
-def detect_prey(agent, liveAgents, animal):
+def detect_prey(agent, liveAgents, is_prey):
     """
     Detects if agent can see an instance of type animal in his visibility range
     :param agent: an animal, fox or bunny
@@ -119,7 +119,7 @@ def detect_prey(agent, liveAgents, animal):
     minDist = inf
     minKey = None
     for key, prey in liveAgents.items():
-        if prey != agent and prey.IS_PREY == animal.IS_PREY and prey.x - agent.x <= agent.visibility and prey.y - agent.y <= agent.visibility:
+        if prey != agent and prey.IS_PREY == is_prey and prey.x - agent.x <= agent.visibility and prey.y - agent.y <= agent.visibility:
             dist = distance(agent.x, agent.y, prey.x, prey.y)
             if minDist > dist <= agent.visibility:
                 minPrey = prey
@@ -156,7 +156,7 @@ class Bunny(Animal):
 
     def handle_fox_in_area(self, state, liveAgents):
         # check for foxes in the area
-        minFox, minFKey = detect_prey(self, liveAgents, Fox)
+        minFox, minFKey = detect_prey(self, liveAgents, Fox.IS_PREY)
         if minFox is not None:  # if there is a fox, run away
             move_towards(self, minFox, state, -1)
             return True
@@ -170,7 +170,7 @@ class Bunny(Animal):
 
     def find_partner(self, state, liveAgents, age_bunny):
         # if the agent wants to reproduce, find another bunny
-        minPrey, minKey = detect_prey(self, liveAgents, Bunny)
+        minPrey, minKey = detect_prey(self, liveAgents, Bunny.IS_PREY)
         if minPrey is not None:
             move_towards(self, minPrey, state, 1)
             if self.x == minPrey.x and self.y == minPrey.y:  # if a bunny has been found, reproduce
@@ -243,7 +243,7 @@ class Fox(Animal):
                 if self.hunger <= self.hungerThresMin:  # if hunger goes under thresholdMin, go hunting
                     self.huntStatus = 1
                 if self.gestStatus == 1:  # if the agent wants to reproduce, find another fox
-                    minPrey, minKey = detect_prey(self, liveAgents, Fox)
+                    minPrey, minKey = detect_prey(self, liveAgents, Fox.IS_PREY)
                     if minPrey is not None:
                         move_towards(self, minPrey, state, 1)
                         if self.x == minPrey.x and self.y == minPrey.y:  # if another fox is found, reproduce
@@ -261,7 +261,7 @@ class Fox(Animal):
                 if self.hunger >= self.hungerThresMax:  # if hunger goes over thresholdMax, stop hunting
                     self.huntStatus = 0
                 minPrey, minKey = detect_prey(
-                    self, liveAgents, Bunny)  # find a prey
+                    self, liveAgents, Bunny.IS_PREY)  # find a prey
                 if minPrey is not None:
                     move_towards(self, minPrey, state, 1)
                     if self.x == minPrey.x and self.y == minPrey.y:  # if the agent is on the prey, kill the prey

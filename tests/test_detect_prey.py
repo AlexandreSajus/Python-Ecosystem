@@ -4,7 +4,7 @@ import run
 
 def test_detect_prey():
     # Test
-    minPrey, minKey = agents.detect_prey(run.liveAgents[1], run.liveAgents, agents.Bunny)
+    minPrey, minKey = agents.detect_prey(run.liveAgents[1], run.liveAgents, agents.Bunny.IS_PREY)
     # Verify
     assert isinstance(minPrey, agents.Bunny)
     assert 0 <= minKey <= 100
