@@ -7,13 +7,14 @@ https://github.com/AlexandreSajus/PythonEcosystem
 agents.py takes care of managing the behaviour of the animals
 """
 
-
+import functools
 from copy import deepcopy
 from math import sqrt, inf
 from random import randint, random
 
 
-def distance(agent1, agent2):
+@functools.lru_cache(maxsize=128, typed=False)
+def distance(x1, y1, x2, y2):
     """
     Measures the distance between two agents
     :param agent1, agent2: an animal, bunny or fox
@@ -21,8 +22,8 @@ def distance(agent1, agent2):
     :return: distance
     :rtype: Float
     """
-    x_dist = (agent1.x - agent2.x)
-    y_dist = (agent1.y - agent2.y)
+    x_dist = x1 - x2
+    y_dist = y1 - y2
     return sqrt((x_dist*x_dist) + (y_dist*y_dist))
 
 
@@ -34,7 +35,7 @@ def unit_vector(agent1, agent2):
     :return: unit vector (x, y)
     :rtype: Tuple
     """
-    d = max(distance(agent1, agent2), 0.1)
+    d = max(distance(agent1.x, agent1.y, agent2.x, agent2.y), 0.1)
     return (agent2.x - agent1.x)/d, (agent2.y - agent1.y)/d
 
 
@@ -119,7 +120,7 @@ def detect_prey(agent, liveAgents, animal):
     minKey = None
     for key, prey in liveAgents.items():
         if prey != agent and prey.IS_PREY == animal.IS_PREY and prey.x - agent.x <= agent.visibility and prey.y - agent.y <= agent.visibility:
-            dist = distance(agent, prey)
+            dist = distance(agent.x, agent.y, prey.x, prey.y)
             if minDist > dist <= agent.visibility:
                 minPrey = prey
                 minDist = dist
