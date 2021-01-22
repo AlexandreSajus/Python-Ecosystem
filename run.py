@@ -7,20 +7,19 @@ https://github.com/AlexandreSajus/PythonEcosystem
 
 # run.py takes care of creating the world and animating it
 
-import numpy as np
 from random import randint
 
-import matplotlib
-import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import matplotlib.pyplot as plt
+import numpy as np
 
 from agents import Bunny, Fox
 
 
-def createWorld(h, w, n_bunnies, speed_bunny_min, speed_bunny_max, visibility_bunny, gestChance_bunny,
-                gestStatus_bunny, gestNumber_bunny, age_bunny, n_foxes, speed_fox, visibility_fox, huntStatus_fox, age_fox,
-                hunger_fox, hungerThresMin_fox, hungerThresMax_fox, hungerReward_fox, maxHunger_fox, gestChance_fox,
-                gestStatus_fox, gestNumber_fox):
+def create_world(h, w, n_bunnies, speed_bunny_min, speed_bunny_max, visibility_bunny, gestChance_bunny,
+                 gestStatus_bunny, gestNumber_bunny, age_bunny, n_foxes, speed_fox, visibility_fox, huntStatus_fox, age_fox,
+                 hunger_fox, hungerThresMin_fox, hungerThresMax_fox, hungerReward_fox, maxHunger_fox, gestChance_fox,
+                 gestStatus_fox, gestNumber_fox):
     """
     Creates an initial world by generating agents with their initial parameters on a h*w 2D grid
     :param h, w: size of the world (height, width)
@@ -51,7 +50,7 @@ def createWorld(h, w, n_bunnies, speed_bunny_min, speed_bunny_max, visibility_bu
     return state, liveAgents
 
 
-def updateState(state, liveAgents):
+def update_state(state, liveAgents):
     """
     updates state according to liveAgents
     :param state: state, 2D array of size h*w with 0 if the spot is empty or the id of an agent if an agent is in the spot
@@ -62,8 +61,7 @@ def updateState(state, liveAgents):
     :rtype: Array
     """
     state = np.zeros((len(state), len(state[0])))
-    for key in liveAgents:
-        agent = liveAgents[key]
+    for key, agent in liveAgents.items():
         x = agent.x
         y = agent.y
         state[y][x] = key
@@ -82,12 +80,9 @@ def step(t, state, liveAgents):
     :return: state, 2D array of size h*w with 0 if the spot is empty or the id of an agent if an agent is in the spot
     :rtype: Array
     """
-    for key in liveAgents.copy():
-        if key in liveAgents:
-            agent = liveAgents[key]
-            agent.act(t, state, liveAgents, age_fox)
-    state = updateState(state, liveAgents)
-    return state
+    for key, agent in liveAgents.copy().items():
+        agent.act(t, state, liveAgents, age_fox)
+    return update_state(state, liveAgents)
 
 
 def export(liveAgents):
@@ -102,8 +97,7 @@ def export(liveAgents):
     YBunnies = []
     XFoxes = []
     YFoxes = []
-    for key in liveAgents:
-        agent = liveAgents[key]
+    for agent in liveAgents.values():
         if isinstance(agent, Bunny):
             XBunnies.append(agent.x)
             YBunnies.append(agent.y)
@@ -124,8 +118,7 @@ def count(liveAgents):
     liveBunnies = 0
     liveFoxes = 0
     speed = 0
-    for key in liveAgents:
-        agent = liveAgents[key]
+    for agent in liveAgents.values():
         if isinstance(agent, Bunny):
             liveBunnies += 1
             speed += agent.speed
@@ -215,11 +208,11 @@ def init():
 
 
 # Create a new world
-(state, liveAgents) = createWorld(w, h, n_bunnies,
-                                  speed_bunny_min, speed_bunny_max, visibility_bunny, gestChance_bunny, gestStatus_bunny,
-                                  gestNumber_bunny, age_bunny, n_foxes, speed_fox, visibility_fox, age_fox, huntStatus_fox,
-                                  hunger_fox, hungerThresMin_fox, hungerThresMax_fox, hungerReward_fox, maxHunger_fox,
-                                  gestChance_fox, gestStatus_fox, gestNumber_fox)
+(state, liveAgents) = create_world(w, h, n_bunnies,
+                                   speed_bunny_min, speed_bunny_max, visibility_bunny, gestChance_bunny, gestStatus_bunny,
+                                   gestNumber_bunny, age_bunny, n_foxes, speed_fox, visibility_fox, age_fox, huntStatus_fox,
+                                   hunger_fox, hungerThresMin_fox, hungerThresMax_fox, hungerReward_fox, maxHunger_fox,
+                                   gestChance_fox, gestStatus_fox, gestNumber_fox)
 t = 0  # time
 T = []
 popBunnyList = []
@@ -229,7 +222,7 @@ speedList = []
 # Animation function
 
 
-def animate(i):
+def animate(_):
     global t, state, liveAgents
     state = step(t, state, liveAgents)  # execute a step
     t += 1  # increment time
@@ -252,8 +245,10 @@ def animate(i):
     return bunnies, foxes, popBunnyData, popFoxData, speedData,
 
 
-# Animation
-ani = animation.FuncAnimation(fig, animate, frames=600,
-                              interval=5, blit=True, init_func=init)
+if __name__ == "__main__":
 
-plt.show()
+    # Animation
+    ani = animation.FuncAnimation(fig, animate, frames=600,
+                                  interval=5, blit=True, init_func=init)
+
+    plt.show()
