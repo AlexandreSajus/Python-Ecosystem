@@ -246,8 +246,10 @@ def animate(_):
     return bunnies, foxes, popBunnyData, popFoxData, speedData,
 
 
-# Animation
-ani = animation.FuncAnimation(fig, animate, frames=600,
-                              interval=5, blit=True, init_func=init)
+if __name__ == "__main__":
 
-plt.show()
+    # Animation
+    ani = animation.FuncAnimation(fig, animate, frames=600,
+                                  interval=5, blit=True, init_func=init)
+
+    plt.show()
