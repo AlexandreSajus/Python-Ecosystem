@@ -116,7 +116,7 @@ def detect_prey(agent, liveAgents, animal):
     minDist = inf
     minKey = None
     for key, prey in liveAgents.items():
-        if prey != agent and isinstance(prey, animal) and prey.x - agent.x <= agent.visibility and prey.y - agent.y <= agent.visibility:
+        if prey != agent and prey.IS_PREY == animal.IS_PREY and prey.x - agent.x <= agent.visibility and prey.y - agent.y <= agent.visibility:
             dist = distance(agent, prey)
             if minDist > dist <= agent.visibility:
                 minPrey = prey
@@ -141,6 +141,7 @@ class Bunny(Animal):
     """
     Bunny class, its variables are explained in run.py
     """
+    IS_PREY = True
 
     def act(self, t, state, liveAgents, age_bunny):
         """
@@ -185,6 +186,8 @@ class Fox(Animal):
     """
     Fox class, its variables are explained in run.py
     """
+    IS_PREY = False
+
     def __init__(self, x, y, speed, visibility, age, huntStatus, hunger, hungerThresMin, hungerThresMax, hungerReward, maxHunger,
                  gestChance, gestStatus, gestNumber):
         super(Fox, self).__init__(x, y, speed, visibility, gestChance, gestStatus, gestNumber, age)
