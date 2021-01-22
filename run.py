@@ -10,7 +10,6 @@ https://github.com/AlexandreSajus/PythonEcosystem
 import numpy as np
 from random import randint
 
-import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
