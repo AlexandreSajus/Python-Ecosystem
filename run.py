@@ -50,7 +50,7 @@ def create_world(h, w, n_bunnies, speed_bunny_min, speed_bunny_max, visibility_b
     return state, liveAgents
 
 
-def updateState(state, liveAgents):
+def update_state(state, liveAgents):
     """
     updates state according to liveAgents
     :param state: state, 2D array of size h*w with 0 if the spot is empty or the id of an agent if an agent is in the spot
@@ -85,7 +85,7 @@ def step(t, state, liveAgents):
         if key in liveAgents:
             agent = liveAgents[key]
             agent.act(t, state, liveAgents, age_fox)
-    state = updateState(state, liveAgents)
+    state = update_state(state, liveAgents)
     return state
 
 
