@@ -140,7 +140,6 @@ class Bunny:
         self.gestNumber = gestNumber
         self.age = age
 
-
     def act(self, t, state, liveAgents, age_bunny):
         """
         act controls the behavior of the agent at every step of the simulation
