@@ -176,9 +176,16 @@ class Bunny(Animal):
 
                 for i in range(self.gestNumber):
                     # the newborns are a copy of the parent
-                    liveAgents[maxKey + i + 1] = deepcopy(self)
-                    # reset the age of the newborns
-                    liveAgents[maxKey + i + 1].age = age_bunny
+                    liveAgents[maxKey + i + 1] = Bunny(
+                        self.x,
+                        self.y,
+                        self.speed,
+                        self.visibility,
+                        self.gestChance,
+                        self.gestStatus,
+                        self.gestNumber,
+                        age_bunny  # reset the age of the newborns
+                    )
             return True
 
     def act(self, t, state, liveAgents, age_bunny):
