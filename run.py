@@ -97,7 +97,7 @@ def export(liveAgents):
     YBunnies = []
     XFoxes = []
     YFoxes = []
-    for key, agent in liveAgents.items():
+    for agent in liveAgents.values():
         if isinstance(agent, Bunny):
             XBunnies.append(agent.x)
             YBunnies.append(agent.y)
@@ -118,7 +118,7 @@ def count(liveAgents):
     liveBunnies = 0
     liveFoxes = 0
     speed = 0
-    for key, agent in liveAgents.items():
+    for agent in liveAgents.values():
         if isinstance(agent, Bunny):
             liveBunnies += 1
             speed += agent.speed
