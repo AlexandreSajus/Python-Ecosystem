@@ -228,7 +228,7 @@ speedList = []
 # Animation function
 
 
-def animate(i):
+def animate(_):
     global t, state, liveAgents
     state = step(t, state, liveAgents)  # execute a step
     t += 1  # increment time
