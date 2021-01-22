@@ -21,7 +21,9 @@ def distance(agent1, agent2):
     :return: distance
     :rtype: Float
     """
-    return sqrt((agent1.x - agent2.x)**2 + (agent1.y - agent2.y)**2)
+    x_dist = (agent1.x - agent2.x)
+    y_dist = (agent1.y - agent2.y)
+    return sqrt((x_dist*x_dist) + (y_dist*y_dist))
 
 
 def unit_vector(agent1, agent2):
