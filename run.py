@@ -16,10 +16,10 @@ import matplotlib.animation as animation
 from agents import Bunny, Fox
 
 
-def createWorld(h, w, n_bunnies, speed_bunny_min, speed_bunny_max, visibility_bunny, gestChance_bunny,
-                gestStatus_bunny, gestNumber_bunny, age_bunny, n_foxes, speed_fox, visibility_fox, huntStatus_fox, age_fox,
-                hunger_fox, hungerThresMin_fox, hungerThresMax_fox, hungerReward_fox, maxHunger_fox, gestChance_fox,
-                gestStatus_fox, gestNumber_fox):
+def create_world(h, w, n_bunnies, speed_bunny_min, speed_bunny_max, visibility_bunny, gestChance_bunny,
+                 gestStatus_bunny, gestNumber_bunny, age_bunny, n_foxes, speed_fox, visibility_fox, huntStatus_fox, age_fox,
+                 hunger_fox, hungerThresMin_fox, hungerThresMax_fox, hungerReward_fox, maxHunger_fox, gestChance_fox,
+                 gestStatus_fox, gestNumber_fox):
     """
     Creates an initial world by generating agents with their initial parameters on a h*w 2D grid
     :param h, w: size of the world (height, width)
@@ -214,11 +214,11 @@ def init():
 
 
 # Create a new world
-(state, liveAgents) = createWorld(w, h, n_bunnies,
-                                  speed_bunny_min, speed_bunny_max, visibility_bunny, gestChance_bunny, gestStatus_bunny,
-                                  gestNumber_bunny, age_bunny, n_foxes, speed_fox, visibility_fox, age_fox, huntStatus_fox,
-                                  hunger_fox, hungerThresMin_fox, hungerThresMax_fox, hungerReward_fox, maxHunger_fox,
-                                  gestChance_fox, gestStatus_fox, gestNumber_fox)
+(state, liveAgents) = create_world(w, h, n_bunnies,
+                                   speed_bunny_min, speed_bunny_max, visibility_bunny, gestChance_bunny, gestStatus_bunny,
+                                   gestNumber_bunny, age_bunny, n_foxes, speed_fox, visibility_fox, age_fox, huntStatus_fox,
+                                   hunger_fox, hungerThresMin_fox, hungerThresMax_fox, hungerReward_fox, maxHunger_fox,
+                                   gestChance_fox, gestStatus_fox, gestNumber_fox)
 t = 0  # time
 T = []
 popBunnyList = []
