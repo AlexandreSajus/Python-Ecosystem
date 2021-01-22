@@ -126,10 +126,7 @@ def detect_prey(agent, liveAgents, animal):
     return minPrey, minKey
 
 
-class Bunny:
-    """
-    Bunny class, its variables are explained in run.py
-    """
+class Animal:
     def __init__(self, x, y, speed, visibility, gestChance, gestStatus, gestNumber, age):
         self.x = x
         self.y = y
@@ -139,6 +136,12 @@ class Bunny:
         self.gestStatus = gestStatus
         self.gestNumber = gestNumber
         self.age = age
+
+
+class Bunny(Animal):
+    """
+    Bunny class, its variables are explained in run.py
+    """
 
     def act(self, t, state, liveAgents, age_bunny):
         """
@@ -179,26 +182,19 @@ class Bunny:
                     random_movement(self, state)
 
 
-class Fox:
+class Fox(Animal):
     """
     Fox class, its variables are explained in run.py
     """
     def __init__(self, x, y, speed, visibility, age, huntStatus, hunger, hungerThresMin, hungerThresMax, hungerReward, maxHunger,
                  gestChance, gestStatus, gestNumber):
-        self.x = x
-        self.y = y
-        self.speed = speed
-        self.visibility = visibility
-        self.age = age
+        super(Fox, self).__init__(x, y, speed, visibility, gestChance, gestStatus, gestNumber, age)
         self.huntStatus = huntStatus
         self.hunger = hunger
         self.hungerThresMin = hungerThresMin
         self.hungerThresMax = hungerThresMax
         self.hungerReward = hungerReward
         self.maxHunger = maxHunger
-        self.gestChance = gestChance
-        self.gestStatus = gestStatus
-        self.gestNumber = gestNumber
 
     def act(self, t, state, liveAgents, age_fox):
         """
