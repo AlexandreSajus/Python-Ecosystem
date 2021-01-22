@@ -92,11 +92,10 @@ def random_movement(agent, state):
     :param state: state, 2D array of size h*w with 0 if the spot is empty or the id of an agent if an agent is in the spot
     :type state: Array
     """
-    r = randint(0, 3)
     x = agent.x
     y = agent.y
     moves = [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
-    move = moves[r]
+    move = moves[randint(0, 3)]
     if legal_move(move, state):
         (agent.x, agent.y) = move
     else:
