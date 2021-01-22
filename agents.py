@@ -87,7 +87,7 @@ def move_towards(agent, agentT, state, direction):
             random_movement(agent, state)
 
 
-def random_movement(agent, state):
+def random_movement(agent, state, moves=None):
     """
     Move randomly where it is legal to move
     :param agent: an animal, fox or bunny
@@ -97,12 +97,12 @@ def random_movement(agent, state):
     """
     x = agent.x
     y = agent.y
-    moves = [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
-    move = moves[randint(0, 3)]
+    moves = moves or [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
+    move = moves.pop(randint(0, len(moves)-1))
     if legal_move(move, state):
         (agent.x, agent.y) = move
     else:
-        random_movement(agent, state)
+        random_movement(agent, state, moves)
 
 
 def detect_prey(agent, liveAgents, animal):
