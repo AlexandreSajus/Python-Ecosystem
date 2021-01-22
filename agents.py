@@ -21,7 +21,7 @@ def distance(agent1, agent2):
     :return: distance
     :rtype: Float
     """
-    return max(sqrt((agent1.x - agent2.x)**2 + (agent1.y - agent2.y)**2), 0.1)
+    return sqrt((agent1.x - agent2.x)**2 + (agent1.y - agent2.y)**2)
 
 
 def unit_vector(agent1, agent2):
@@ -32,7 +32,7 @@ def unit_vector(agent1, agent2):
     :return: unit vector (x, y)
     :rtype: Tuple
     """
-    d = distance(agent1, agent2)
+    d = max(distance(agent1, agent2), 0.1)
     return (agent2.x - agent1.x)/d, (agent2.y - agent1.y)/d
 
 
