@@ -48,11 +48,7 @@ def legal_move(move, state):
     """
     yMax = len(state)
     xMax = len(state[0])
-    if move[0] < 0 or move[0] >= xMax:
-        return False
-    if move[1] < 0 or move[1] >= yMax:
-        return False
-    return True
+    return 0 <= move[0] < xMax and 0 <= move[1] < yMax
 
 
 def move_towards(agent, agentT, state, direction):
