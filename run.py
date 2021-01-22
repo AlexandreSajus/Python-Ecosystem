@@ -7,11 +7,11 @@ https://github.com/AlexandreSajus/PythonEcosystem
 
 # run.py takes care of creating the world and animating it
 
-import numpy as np
 from random import randint
 
-import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import matplotlib.pyplot as plt
+import numpy as np
 
 from agents import Bunny, Fox
 

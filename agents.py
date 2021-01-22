@@ -8,9 +8,9 @@ agents.py takes care of managing the behaviour of the animals
 """
 
 
-from random import randint, random
-from math import sqrt, inf
 from copy import deepcopy
+from math import sqrt, inf
+from random import randint, random
 
 
 def distance(agent1, agent2):
