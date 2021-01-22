@@ -33,7 +33,7 @@ def unit_vector(agent1, agent2):
     :rtype: Tuple
     """
     d = distance(agent1, agent2)
-    return ((agent2.x - agent1.x)/d, (agent2.y - agent1.y)/d)
+    return (agent2.x - agent1.x)/d, (agent2.y - agent1.y)/d
 
 
 def legal_move(move, state):
